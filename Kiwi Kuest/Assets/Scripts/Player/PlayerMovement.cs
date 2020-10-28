@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject playerGraphics;
 
     private Vector3 moveDirection;
+    private Vector3 lastDirection;
 
     void Start()
     {
@@ -28,9 +29,13 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = moveDirection.normalized * moveSpeed;   //Normalizes the input
         moveDirection.y = yDir;
 
+        if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
+            lastDirection = moveDirection;
+
         controller.Move(moveDirection * Time.deltaTime);
 
-        LookInMoveDirection();
+        //LookInMoveDirection();
+        playerGraphics.transform.rotation = Quaternion.LookRotation(lastDirection);
     }
 
     void LookInMoveDirection()

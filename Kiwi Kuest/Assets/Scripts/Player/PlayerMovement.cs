@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -13,12 +14,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 moveDirection;
     private Vector3 lastDirection;
 
-    public PlayerAnimations playerAnimations;
+    public Animator animator;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        playerAnimations = GetComponent<PlayerAnimations>();
+        animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -31,16 +32,15 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
         {
             lastDirection = moveDirection;
-            playerAnimations.isWalking = true;
+            animator.SetBool("isWalking", true);
         }else
         {
-            playerAnimations.isWalking = false;
+            animator.SetBool("isWalking", false);
         }
 
         controller.Move(moveDirection * Time.deltaTime);
 
         playerGraphics.transform.rotation = Quaternion.LookRotation(lastDirection);
-        playerAnimations.AnimationTrigger();
     }
 
 }

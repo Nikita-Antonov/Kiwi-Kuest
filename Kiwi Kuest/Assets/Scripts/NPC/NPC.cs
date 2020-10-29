@@ -36,6 +36,11 @@ public class NPC : MonoBehaviour
         interactionCollider = GetComponent<SphereCollider>();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.gameObject.name + "Is in the range of " + cName);
+    }
+
     void Merchant()
     {
 

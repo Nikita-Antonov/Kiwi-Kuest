@@ -25,6 +25,8 @@ public class PlayerAnimations : MonoBehaviour
     {
         if (curTimer > 0)
             curTimer -= Time.fixedDeltaTime;
+        if (curTimer < 0)
+            curTimer = 0;
 
         if (isWalking == false)
         {

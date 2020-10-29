@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,14 +13,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 moveDirection;
     private Vector3 lastDirection;
 
+    public PlayerAnimations playerAnimations;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
-    }
-
-    void Update()
-    {
-       
+        playerAnimations = GetComponent<PlayerAnimations>();
     }
 
     void FixedUpdate()
@@ -30,17 +29,18 @@ public class PlayerMovement : MonoBehaviour
         moveDirection.y = yDir;
 
         if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0)
+        {
             lastDirection = moveDirection;
+            playerAnimations.isWalking = true;
+        }else
+        {
+            playerAnimations.isWalking = false;
+        }
 
         controller.Move(moveDirection * Time.deltaTime);
 
-        //LookInMoveDirection();
         playerGraphics.transform.rotation = Quaternion.LookRotation(lastDirection);
-    }
-
-    void LookInMoveDirection()
-    {
-        playerGraphics.transform.rotation = Quaternion.LookRotation(moveDirection);
+        playerAnimations.AnimationTrigger();
     }
 
 }

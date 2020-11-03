@@ -23,6 +23,11 @@ public class NPC : MonoBehaviour
     [Header("Gameobject Refrences")]
     public Text nameText;
     public Text titleText;
+    [Space]
+
+    //Invintory Reffrence
+    [Header("NPC Invintory")]
+    public SO_Invintory cInvintory;
 
     //Refrence to the Sphere Collider used for handling intecactrions
     //If the player is within the collider he can talk to the NPC
@@ -38,7 +43,9 @@ public class NPC : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name + "Is in the range of " + cName);
+        Debug.Log(other.gameObject.name + "Is in the range of " + cName + ", The " + titleText);
+        other.gameObject.GetComponent<PlayerLogic>().canInteract = true;
+        other.gameObject.GetComponent<PlayerLogic>().nearestNPC = this.gameObject;
     }
 
     void Merchant()

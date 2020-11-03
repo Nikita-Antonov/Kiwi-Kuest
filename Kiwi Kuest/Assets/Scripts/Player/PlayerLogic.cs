@@ -1,24 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public class PlayerLogic : MonoBehaviour
 {
 
     public int curGol = 10;
 
-    private int maxInvSpace = 40;
-    public Item[] inventory;
+    public SO_Invintory inventory;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        inventory = new Item[maxInvSpace];
-    }
+    public bool canInteract;
 
-    // Update is called once per frame
-    void Update()
+    public GameObject nearestNPC;
+
+    public void FixedUpdate()
     {
         
     }
+
+    void Interact()
+    {
+        if (canInteract)
+        {
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                if(nearestNPC.GetComponent<NPC>().chatecterTitles == NPC.ChatecterTitles.Merchant)
+                {
+                    //nearestNPC.GetComponent<NPC>().cInvintory
+                }
+            }
+        }
+    }
+
 }
